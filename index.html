@@ -85,13 +85,18 @@
     
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+        <div>
+          <i class="bi bi-pencil"></i>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
       </div>
       <div class="offcanvas-body">
-        <div class="a">
+        <div class="editTicketInput">
           <input class='editTicketValue' type="text"/><button class="btn btn-success save">save</button><button class="btn btn-secondary">cancel</button>
         </div>
+        <label for="ticket description" style="width:100%;margin-top: 20px;">Add description</label>
+        <textarea id="ticket description" style="width:100%;padding-left:5px;" rows="10" placeholder="enter a description"></textarea>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>

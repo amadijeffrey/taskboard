@@ -1,258 +1,287 @@
 * {
-    margin: 0 ;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-input{
-    outline: none;
+input {
+  outline: none;
 }
 .container {
-    box-sizing: border-box;
-    min-width: 400px;
-    width: 30%;
-    height:  350px;
-    border-radius: 5px;
-    padding: 20px;
-    background: rgb(234 239 241);
-    border: 1px solid lightgray;
-    margin: 0;
-    margin-right: 20px;
-    position: relative;
+  box-sizing: border-box;
+  min-width: 400px;
+  width: 30%;
+  height: 350px;
+  border-radius: 5px;
+  padding: 18px;
+  background: rgb(234 239 241);
+  border: 1px solid lightgray;
+  margin: 0;
+  margin-right: 20px;
+  position: relative;
 }
-.options{
-    float: right;
+.options {
+  float: right;
 }
-h6{
-    margin: 0;
+h6 {
+  margin: 0;
 }
-.filter{
-    padding: 5px;
-    padding-left:5px;
-    border: 1px solid lightgray;
+.filter {
+  padding: 5px;
+  padding-left: 5px;
+  border: 1px solid lightgray;
 }
-.filter:focus{
+.filter:focus {
   border: 1px solid blue;
-    
 }
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height:80px;
-    padding: 20px;
-}
-
-.begin h4{
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-.features span{
-    margin: 0px 10px;
-    padding-bottom: 10px;
-}
-.features span:first-child{
-    margin-left: 0px;
-}
-i{
-    margin-right: 6px;
-}
-.features span.active{
-    border-bottom: 2px solid orange;
-}
-.begin{
-    padding: 0px 20px;
-    padding-top:15px;
-    padding-bottom: 8px;
-    background-color: rgb(234 239 241);
-    border-bottom: 1px solid lightgray;
-}
-.head{
-    font-weight: bold;
-}
-.others{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.others p{
- margin: 0px 10px;
-}
-.options:hover{
-    cursor: pointer;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 20px;
 }
 
-.column:hover{
-    background-color: blue;
-    cursor: pointer;
-    color: white;
-
+.begin h4 {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.features span {
+  margin: 0px 10px;
+  padding-bottom: 10px;
+}
+.features span:first-child {
+  margin-left: 0px;
+}
+i {
+  margin-right: 6px;
+}
+.features span.active {
+  border-bottom: 2px solid orange;
+}
+.begin {
+  padding: 0px 20px;
+  padding-top: 15px;
+  padding-bottom: 8px;
+  background-color: rgb(234 239 241);
+  border-bottom: 1px solid lightgray;
+}
+.head {
+  font-weight: bold;
+}
+.others {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.others p {
+  margin: 0px 10px;
+}
+.options:hover {
+  cursor: pointer;
 }
 
-.column{
-    padding-left: 7px;
+.column:hover {
+  background-color: blue;
+  cursor: pointer;
+  color: white;
 }
-.columnOptions{
-    position:absolute;
-    background-color: white;
-    width:150px;
-    z-index: 300;
-    top: 55px;
-    right:20px;
-    border: 1px solid lightgray;
-    display:none;
-    border-radius: 5px;
+
+.column {
+  padding-left: 7px;
 }
-p{
-    margin:0
+.columnOptions {
+  position: absolute;
+  background-color: white;
+  width: 150px;
+  z-index: 300;
+  top: 55px;
+  right: 20px;
+  border: 1px solid lightgray;
+  display: none;
+  border-radius: 5px;
 }
-.numOfTicket{
+p {
+  margin: 0;
+}
+/* .numOfTicket{
     margin-right: 5px;
     background-color:lightgray;
     padding:2px 4px;
     border-radius: 50%;
+} */
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0px;
+  box-sizing: border-box;
 }
-.title{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0px;
-    box-sizing: border-box;
-
+#addColumnValue {
+  width: 100%;
+  padding-left: 5px;
 }
-#addColumnValue{
-    width: 100%;
-    padding-left: 5px;
-}
-#addColumnValue:focus{
-    border: 1px solid blue;
-}
-#editColumnValue{
-    width: 100%;
-    padding-left: 5px;
-}
-.offcanvas{
-    height: 85vh;
-    margin-top: 15vh;
-}
-#editColumnValue:focus{
-    border: 1px solid blue;
-}
-.editTicketValue{
-    width:100%;
-    margin-bottom: 10px;
-}
-.close:focus{
-    outline: none;
-    border: none;
-}
-.ticketOption{
-    width:100px;
-    background-color: white;
-    border: 1px solid lightgray;
-    display:none;
-    position: absolute;
-    right:0px;
-    top:35px;
-    z-index:10;
-    border-radius: 5px;
-}
-.close:hover{
-    color: blue;
-}
-.scrollable{
-    height:85%;
-    overflow-y: scroll;
-
-}
-.btn-secondary{
-    width: 49%;
-    box-sizing: border-box;
-}
-.btn-success{
-    width: 49%;
-    box-sizing: border-box;
-    margin-right: 6px;
-}
-.visible{
-    display: block;
-}
-.newTicketValue{
-    width:100%;
-    margin-bottom: 10px;
-    padding-left: 5px;
-    display:block;
-}
-.newTicketValue:focus{
+#addColumnValue:focus {
   border: 1px solid blue;
 }
-.addTicketInput{
-    width:100%;
-    padding:10px;
-    display: none;
-    box-sizing: border-box;
+#editColumnValue {
+  width: 100%;
+  padding-left: 5px;
 }
-.addTicket:hover{
-    cursor: pointer;
+.offcanvas {
+  height: 85vh;
+  margin-top: 15vh;
 }
-.dropdown:hover{
-    cursor: pointer;
+#editColumnValue:focus {
+  border: 1px solid blue;
 }
-.symbol{
-    font-size: 20px;
-    margin:0;
-    margin-left: 10px;
+.editTicketInput {
+  display: none;
+}
+.offcanvas-header {
+  justify-content: space-between;
+}
+.offcanvas-title:hover {
+  cursor: pointer;
+}
+.bi-pencil {
+  display: none;
+}
+.bi-pencil:hover {
+  cursor: pointer;
+}
+.offcanvas-header:hover .bi-pencil {
+  display: inline-block;
+}
+.editTicketValue {
+  width: 100%;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+.editTicketValue:focus{
+    border: 1px solid blue;
+}
+.btn-close {
+  vertical-align: middle;
+}
+.close:focus {
+  outline: none;
+  border: none;
+}
+.ticketOption {
+  width: 100px;
+  background-color: white;
+  border: 1px solid lightgray;
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: 35px;
+  z-index: 10;
+  border-radius: 5px;
+}
+.close:hover {
+  color: blue;
+}
+.scrollable {
+  height: 85%;
+  overflow-y: scroll;
+}
+.btn-secondary {
+  width: 49%;
+  box-sizing: border-box;
+}
+.btn-success {
+  width: 49%;
+  box-sizing: border-box;
+  margin-right: 6px;
+}
+.visible {
+  display: block;
+}
+.newTicketValue {
+  width: 100%;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  display: block;
+}
+.newTicketValue:focus {
+  border: 1px solid blue;
+}
+.addTicketInput {
+  width: 100%;
+  padding: 10px;
+  display: none;
+  box-sizing: border-box;
+}
+.addTicket:hover {
+  cursor: pointer;
+}
+.dropdown:hover {
+  cursor: pointer;
 }
 
-.ticket{
-    max-width:100%;
-    height:70px;
-    padding:10px;
-    background-color: white;
-    border-radius: 5px;
-    margin: 7px;
-    margin-bottom:7px ;
-    position: relative;
+.symbol {
+  font-size: 20px;
+  margin: 0;
+  margin-left: 10px;
+}
+.over {
+  border: 1px dashed gray;
+}
+.tickets {
+  max-width: 100%;
+  height: 70px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 7px;
+  margin-bottom: 7px;
+  position: relative;
+  cursor: move;
 }
 
 .addColumn {
-    box-sizing: border-box;
-    border: 1px dashed lightgray;
-    height:50px;
-    margin: 0;
-    display:flex;
-    align-items: center;
-    padding: 50px;
+  box-sizing: border-box;
+  border: 1px dashed lightgray;
+  height: 50px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  padding: 50px;
 }
 
-.addColumn:hover{
-    cursor: pointer;
+.addColumn:hover {
+  cursor: pointer;
 }
 
-.section{
-    display:flex;
-    white-space: nowrap;
-    overflow-x: scroll;
-    max-width:100%;
+.section {
+  display: flex;
+  white-space: nowrap;
+  overflow-x: scroll;
+  max-width: 100%;
 }
 
-.animated{
-    animation-name: fadeOut;
-    animation-duration: 4s
-
+.animated {
+  animation-name: fadeOut;
+  animation-duration: 4s;
 }
 @-webkit-keyframes fadeOut {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
- }
- 
- .fadeOut {
-    -webkit-animation-name: fadeOut;
-    animation-name: fadeOut;
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
- }
- @keyframes fadeOut {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
- }
-
-
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

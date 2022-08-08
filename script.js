@@ -1,7 +1,6 @@
 const addColumnButton = document.querySelector(".btn-primary");
 const section = document.querySelector(".section");
 const addPosition = document.querySelector(".addColumn");
-const editTicketButtons = document.querySelectorAll('.edit')
 const body = document.querySelector('body')
 
 
@@ -13,13 +12,23 @@ const body = document.querySelector('body')
 // })
 
 
-addColumnButton.addEventListener("click", (e) => {
-  console.log(this)
+addColumnButton.addEventListener("click", function(e){
   const newColumn = document.querySelector("#addColumnValue").value;
   const id = Date.now()
-  addPosition.insertAdjacentHTML("beforebegin", `<div class="container" data-id=${id}><span class="columnOptions"><p class="column editColumn" data-bs-toggle="modal" data-bs-target="#editColumnModal">edit column</p><p class="column deleteColumn">delete column</p></span>
-  <div class="title"><p class='head'><span style="margin-right: 5px;background-color:lightgray;padding:2px 4px;border-radius: 50%;font-weight:normal;">0</span>${newColumn}</p><div style="display: flex;align-items: center;"><p class="symbol addTicket">+</p><p class="symbol dropdown">...</p></div></div><div class="scrollable"> <div class="addTicketInput">
-  <input class='newTicketValue' type="text"/><button class="btn btn-success add">add</button><button class="btn btn-secondary">cancel</button></div></div></div>`);
+  const scrollableDiv = document.createElement('div')
+  scrollableDiv.classList.add('scrollable')
+  scrollableDiv.innerHTML = '<div class="addTicketInput"><input class="newTicketValue" type="text"/><button class="btn btn-success add">add</button><button class="btn btn-secondary">cancel</button></div>'
+  scrollableDiv.addEventListener('dragover', handleDragOver)
+  scrollableDiv.addEventListener('drop', handleDropEvent)
+  
+  const containerEl = document.createElement('div')
+  containerEl.classList.add('container')
+  containerEl.setAttribute('data-id',id)
+  containerEl.innerHTML = `<span class="columnOptions"><p class="column editColumn" data-bs-toggle="modal" data-bs-target="#editColumnModal">edit column</p><p class="column deleteColumn">delete column</p></span>
+  <div class="title"><p class='head'><span style="margin-right: 5px;background-color:lightgray;padding:2px 4px;border-radius: 50%;font-weight:normal;">0</span>${newColumn}</p><div style="display: flex;align-items: center;"><p class="symbol addTicket">+</p><p class="symbol dropdown">...</p></div></div>`
+  containerEl.appendChild(scrollableDiv)
+  addPosition.insertAdjacentElement("beforebegin", containerEl)
+
   document.querySelector("#addColumnValue").value = ''
 });
 
@@ -32,7 +41,16 @@ body.addEventListener('click', (e) => {
   if(e.target.classList.contains('add')){
     const newTicket = e.target.previousElementSibling.value;
     const id = Date.now()
-    e.target.parentElement.insertAdjacentHTML("afterend", `<div class='ticket' id=${id} draggable="true"><p><a class='editTicket' data-bs-toggle="offcanvas" href="#offcanvasRight">${newTicket}</a><span class="options" >...</span></p><span class="ticketOption"><p class="column delete">delete ticket</p></span></div>`);
+    const el = document.createElement('div')
+    el.classList.add('tickets')
+    el.setAttribute('id', id)
+    el.setAttribute('data-id', id)
+    el.setAttribute('draggable', 'true')
+    el.innerHTML = `<p><a class='editTicket' data-bs-toggle="offcanvas" href="#offcanvasRight">${newTicket}</a><span class="options" >...</span></p><span class="ticketOption"><p class="column delete">delete ticket</p></span>`
+    el.addEventListener('dragstart', handleDragStart)
+    el.addEventListener('dragover', handleDragOver)
+    el.addEventListener('drop', handleDrop)
+    e.target.parentElement.insertAdjacentElement("afterend", el)
     e.target.parentElement.style.display = 'none'
     e.target.previousElementSibling.value = ''
     const newValue = Number(e.target.parentElement.parentElement.previousElementSibling.firstElementChild.firstElementChild.textContent) + 1
@@ -67,7 +85,12 @@ body.addEventListener('click', (e) => {
     },1500)
   }
 
-  
+  if(e.target.classList.contains('editTicket')){
+    const value = e.target.textContent
+    document.querySelector('.offcanvas-title').textContent = value
+    document.querySelector('.offcanvas-body').dataset.id = e.target.parentElement.parentElement.dataset.id
+  }
+
   if(e.target.classList.contains('editColumn')){
    const value = e.target.parentElement.nextElementSibling.firstElementChild.textContent
    document.querySelector("#editColumnValue").value = value.substr(1,value.length)
@@ -75,9 +98,10 @@ body.addEventListener('click', (e) => {
    document.querySelector('.updateContent').dataset.id =  e.target.parentElement.parentElement.dataset.id
   }
 
+
   if(e.target.classList.contains('updateColumn')){
    const containers = document.querySelectorAll('.container')
-   containers.forEach( container =>{
+   containers.forEach( container => {
     if( container.dataset.id === e.target.parentElement.parentElement.dataset.id){
     const updatedColumn = document.querySelector('#editColumnValue').value
       container.firstElementChild.nextElementSibling.firstElementChild.childNodes[1].nodeValue = updatedColumn
@@ -95,33 +119,59 @@ body.addEventListener('click', (e) => {
 
 })
 
-body.addEventListener('dragstart', (e) => {
-  if(e.target.classList.contains('ticket')){
-    e.dataTransfer.setData('text', e.target.id);
-  }
+const editTicketButton = document.querySelector('.bi-pencil')
+editTicketButton.addEventListener('click', function(e){
+this.parentElement.parentElement.nextElementSibling.firstElementChild.style.display = 'block'
+ document.querySelector('.editTicketValue').value = this.parentElement.previousElementSibling.textContent
 })
 
-body.addEventListener('dragover', (e) => {
-  if(e.target.classList.contains('scrollable')){
-    e.preventDefault()
-  }
-})
-
-body.addEventListener('drop', (e) => {
-  if(e.target.classList.contains('scrollable')){
-    e.stopPropagation()
-    const id = e.dataTransfer.getData('text');
-    const draggable = document.getElementById(id);
-    e.target.appendChild(draggable)
-  }
-})
-
-
-editTicketButtons.forEach(editTicketButton => {
-  editTicketButton.addEventListener('click', (e) => {
-   const value = e.target.parentElement.parentElement.firstElementChild.textContent
-   value.substr(0,value.length - 3)
-
+const updateTicketButton = document.querySelector('.save')
+updateTicketButton.addEventListener('click', function(e){
+  document.querySelector('.offcanvas-title').textContent = document.querySelector('.editTicketValue').value
+  const tickets = document.querySelectorAll('.tickets')
+  tickets.forEach( ticket => {
+    if(ticket.dataset.id === e.target.parentElement.parentElement.dataset.id){
+      const inputValue = document.querySelector('.editTicketValue').value
+      ticket.firstElementChild.firstElementChild.textContent = inputValue
+            e.target.parentElement.style.display = 'none'
+    }
   })
 })
 
+
+
+
+const tickets = document.querySelectorAll('.tickets')
+tickets.forEach( ticket => {
+  ticket.addEventListener('dragstart', handleDragStart)
+  ticket.addEventListener('dragover', handleDragOver)
+  ticket.addEventListener('drop', handleDrop)
+})
+
+function handleDragStart(e){
+    dragSrcEl = this
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+    e.dataTransfer.setData('text', e.target.id);
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  return false;
+}
+
+function handleDrop(e){
+  e.stopPropagation()
+    if (dragSrcEl !== this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+    return false
+}
+
+function handleDropEvent(e){
+  e.stopPropagation()
+  const id = e.dataTransfer.getData('text');
+  const draggable = document.getElementById(id);
+  e.target.appendChild(draggable)
+}
