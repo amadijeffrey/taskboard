@@ -138,14 +138,50 @@ updateTicketButton.addEventListener('click', function(e){
   })
 })
 
-
-
-
-const tickets = document.querySelectorAll('.tickets')
-tickets.forEach( ticket => {
-  ticket.addEventListener('dragstart', handleDragStart)
-  ticket.addEventListener('dragover', handleDragOver)
-  ticket.addEventListener('drop', handleDrop)
+const toggle = document.querySelector('.toggle')
+toggle.addEventListener('click', function(){
+  if(this.innerHTML == '<i class="bi bi-moon"></i>'){
+    this.innerHTML = '<i class="bi bi-brightness-high"></i>'
+    document.querySelector('body').style.backgroundColor = 'rgb(0 30 60)'
+    document.querySelector('body').style.color = 'white'
+    document.querySelector('.btn-close').style.backgroundColor = 'white'
+    document.querySelector('.begin').style.backgroundColor = 'rgb(10 25 41)'
+    document.querySelector('#offcanvasRight').style.backgroundColor = 'rgb(19, 47, 76)'
+    document.querySelector('.bi-brightness-high').style.border = '1px solid rgb(19, 47, 76)'
+    document.querySelector('#ticketDescription').style.backgroundColor = 'lightgray'
+    document.querySelectorAll('.container').forEach(container => {
+      container.style.backgroundColor = 'rgb(10 25 41)'
+    })
+    document.querySelectorAll('.tickets').forEach(ticket => {
+      ticket.style.backgroundColor = 'lightgray'
+    })
+    document.querySelectorAll('.modal-content').forEach(modal => {
+      modal.style.backgroundColor = 'rgb(19, 47, 76)'
+    })
+    document.querySelectorAll('.columnOptions').forEach(columnOption => {
+      columnOption.style.backgroundColor = 'rgb(19, 47, 76)'
+    })
+    document.querySelectorAll('.ticketOption').forEach(option => {
+      option.style.backgroundColor = 'rgb(19, 47, 76)'
+    })
+  }else{
+    this.innerHTML = '<i class="bi bi-moon"></i>'
+    document.querySelector('body').style.backgroundColor = 'white'
+    document.querySelector('body').style.color = 'black'
+    document.querySelector('.btn-close').style.color = 'black'
+    document.querySelector('.begin').style.backgroundColor = 'rgb(234 239 241)'
+    document.querySelector('#offcanvasRight').style.backgroundColor = 'white'
+    document.querySelector('#ticketDescription').style.backgroundColor = 'white'
+    document.querySelectorAll('.container').forEach(container => {
+      container.style.backgroundColor = 'rgb(234 239 241)'
+    })
+    document.querySelectorAll('.tickets').forEach(ticket => {
+      ticket.style.backgroundColor = 'white'
+    })
+    document.querySelectorAll('.modal-content').forEach(modal => {
+      modal.style.backgroundColor = 'white'
+    })
+  }
 })
 
 function handleDragStart(e){
