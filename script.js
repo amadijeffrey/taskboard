@@ -46,7 +46,7 @@ body.addEventListener('click', (e) => {
     el.setAttribute('id', id)
     el.setAttribute('data-id', id)
     el.setAttribute('draggable', 'true')
-    el.innerHTML = `<p><a class='editTicket' data-bs-toggle="offcanvas" href="#offcanvasRight">${newTicket}</a><span class="options" >...</span></p><span class="ticketOption"><p class="column delete">delete ticket</p></span>`
+    el.innerHTML = `<p><a class='editTicket' data-bs-toggle="offcanvas" href="#offcanvasRight">${newTicket}</a><span class="options" >...</span></p><span class="ticketOption"><p class="column delete">delete ticket</p></span><p id='label'></p>`
     el.addEventListener('dragstart', handleDragStart)
     el.addEventListener('dragover', handleDragOver)
     el.addEventListener('drop', handleDrop)
@@ -77,7 +77,8 @@ body.addEventListener('click', (e) => {
   }
 
   if(e.target.classList.contains('delete')){
-    const ticket = e.target.parentElement.parentElement.classList.add('animated')
+    const ticket = e.target.parentElement.parentElement
+    ticket.classList.add('animated')
     const newValue =  Number(e.target.parentElement.parentElement.parentElement.previousElementSibling.firstElementChild.firstElementChild.textContent) - 1
     e.target.parentElement.parentElement.parentElement.previousElementSibling.firstElementChild.firstElementChild.textContent = newValue
     setTimeout(() => {
@@ -119,10 +120,54 @@ body.addEventListener('click', (e) => {
 
 })
 
-const editTicketButton = document.querySelector('.bi-pencil')
-editTicketButton.addEventListener('click', function(e){
+const editTicketButton = document.querySelector('.editTicketTitle')
+editTicketButton.addEventListener('click', function(){
 this.parentElement.parentElement.nextElementSibling.firstElementChild.style.display = 'block'
  document.querySelector('.editTicketValue').value = this.parentElement.previousElementSibling.textContent
+})
+
+const editTicketBody = document.querySelector('.editTicketDescription')
+editTicketBody.addEventListener('click', function(){
+this.parentElement.nextElementSibling.style.display = 'block'
+document.querySelector('#ticketDescription').value =  document.querySelector('.updateCommentText').textContent
+document.querySelector('.updateCommentText').textContent = ''
+})
+
+const updateComment = document.querySelector('.updateComment')
+updateComment.addEventListener('click', function(){
+  document.querySelector('.updateCommentText').textContent = document.querySelector('#ticketDescription').value
+  document.querySelector('#ticketDescription').value = ''
+  this.parentElement.style.display = 'none'
+})
+
+const labels = document.querySelectorAll('li')
+labels.forEach( label => {
+  label.addEventListener('click', function(e){
+    const destination = document.querySelector('#selectedLabel')
+    const className = this.firstElementChild.firstElementChild.nextElementSibling.textContent
+    destination.textContent = className
+    destination.className = ''
+    destination.classList.add(`${className}`)
+    const tickets = document.querySelectorAll('.tickets')
+    tickets.forEach( ticket => {
+
+      if(ticket.dataset.id === this.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.id){
+        ticket.lastElementChild.textContent = className
+        ticket.lastElementChild.className = ''
+        ticket.lastElementChild.classList.add(`${className}`)
+      }
+    })
+  })
+})
+
+const filterCardInput = document.querySelector('.filter')
+filterCardInput.addEventListener('input', function(){
+  const tickets = document.querySelectorAll('.tickets')
+  const unselectedTickets = [...tickets].filter( ticket => ticket.firstElementChild.firstElementChild.textContent !== filterCardInput.value )
+  unselectedTickets.forEach(function(eachTicket){
+    console.log(eachTicket)
+    // eachTicket.style.background = 'green'
+  })
 })
 
 const updateTicketButton = document.querySelector('.save')
@@ -133,7 +178,7 @@ updateTicketButton.addEventListener('click', function(e){
     if(ticket.dataset.id === e.target.parentElement.parentElement.dataset.id){
       const inputValue = document.querySelector('.editTicketValue').value
       ticket.firstElementChild.firstElementChild.textContent = inputValue
-            e.target.parentElement.style.display = 'none'
+      e.target.parentElement.style.display = 'none'
     }
   })
 })
@@ -153,7 +198,7 @@ toggle.addEventListener('click', function(){
       container.style.backgroundColor = 'rgb(10 25 41)'
     })
     document.querySelectorAll('.tickets').forEach(ticket => {
-      ticket.style.backgroundColor = 'lightgray'
+      ticket.style.backgroundColor = 'gray'
     })
     document.querySelectorAll('.modal-content').forEach(modal => {
       modal.style.backgroundColor = 'rgb(19, 47, 76)'
@@ -181,11 +226,18 @@ toggle.addEventListener('click', function(){
     document.querySelectorAll('.modal-content').forEach(modal => {
       modal.style.backgroundColor = 'white'
     })
+    document.querySelectorAll('.columnOptions').forEach(columnOption => {
+      columnOption.style.backgroundColor = 'white'
+    })
+    document.querySelectorAll('.ticketOption').forEach(option => {
+      option.style.backgroundColor = 'white'
+    })
   }
 })
 
 function handleDragStart(e){
     dragSrcEl = this
+    numOfTask = this.parentElement.previousElementSibling.firstElementChild.firstElementChild
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
     e.dataTransfer.setData('text', e.target.id);
@@ -210,4 +262,11 @@ function handleDropEvent(e){
   const id = e.dataTransfer.getData('text');
   const draggable = document.getElementById(id);
   e.target.appendChild(draggable)
+  numOfTask.textContent = Number(numOfTask.textContent) - 1
+  const numOfCurrentTickets = e.target.previousElementSibling.firstElementChild.firstElementChild.textContent
+  e.target.previousElementSibling.firstElementChild.firstElementChild.textContent = Number(numOfCurrentTickets) + 1
+  const previousLocation = numOfTask.parentElement.childNodes[1].nodeValue
+  const ticketName = dragSrcEl.firstElementChild.firstElementChild.textContent
+  const newLocation = e.target.previousElementSibling.firstElementChild.childNodes[1].nodeValue
+  alert(`you moved '${ticketName}' from ${previousLocation} to ${newLocation}`)
 }
